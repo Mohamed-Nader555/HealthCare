@@ -1,11 +1,13 @@
 package com.mycompany.healthcare;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class HealthMonitor implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+        private List<User> users;
     private User loggedInUser;
     private String dailyHealthReport;
 
@@ -22,6 +24,19 @@ public class HealthMonitor implements Serializable {
         return loggedInUser;
     }
 
+    
+    public void addUser(User user) {
+        users.add(user);
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+    
     public void recordHealthData(int bloodPressure, int heartRate, String vaccinationStatus) {
         if (loggedInUser != null) {
             loggedInUser.setBloodPressure(bloodPressure);

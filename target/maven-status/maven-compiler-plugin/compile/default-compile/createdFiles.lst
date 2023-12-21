@@ -1,4 +1,6 @@
+com\mycompany\healthcare\FileHandler.class
 com\mycompany\healthcare\HealthTips.class
+com\mycompany\healthcare\HealthMenu.class
 com\mycompany\healthcare\HealthMonitor.class
 com\mycompany\healthcare\LifestyleTip.class
 com\mycompany\healthcare\ExerciseTip.class
