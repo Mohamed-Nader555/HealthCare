@@ -4,36 +4,34 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    // User details
     private String name;
     private int age;
     private String gender;
 
-    // Health parameters
-    private int bloodPressure;
+    private String bloodPressure;
     private int heartRate;
     private String vaccinationStatus;
-
-    // Login credentials
+    private int nutritionDetails;
+    private double weeklyActivityHours;
+    private double weight;
+    private double height;
+    private double sleepDuration;
+    
     private String username;
     private String password;
 
-    // Constructors
-    public User(String name, int age, String gender, int bloodPressure, int heartRate, String vaccinationStatus,
-            String username, String password) {
+    public User(){
+        
+    }
+    
+    public User(String name, int age, String gender, String username, String password) {
         this.name = name;
         this.age = age;
         this.gender = gender;
-        this.bloodPressure = bloodPressure;
-        this.heartRate = heartRate;
-        this.vaccinationStatus = vaccinationStatus;
         this.username = username;
         this.password = password;
     }
 
-    // Getters and setters for user details
     public String getName() {
         return name;
     }
@@ -58,12 +56,11 @@ public class User implements Serializable {
         this.gender = gender;
     }
 
-    // Getters and setters for health parameters
-    public int getBloodPressure() {
+    public String getBloodPressure() {
         return bloodPressure;
     }
 
-    public void setBloodPressure(int bloodPressure) {
+    public void setBloodPressure(String bloodPressure) {
         this.bloodPressure = bloodPressure;
     }
 
@@ -99,4 +96,46 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+    public int getNutritionDetails() {
+        return nutritionDetails;
+    }
+
+    public void setNutritionDetails(int nutritionDetails) {
+        this.nutritionDetails = nutritionDetails;
+    }
+
+    public double getWeeklyActivityHours() {
+        return weeklyActivityHours;
+    }
+
+    public void setWeeklyActivityHours(double weeklyActivityHours) {
+        this.weeklyActivityHours = weeklyActivityHours;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getSleepDuration() {
+        return sleepDuration;
+    }
+
+    public void setSleepDuration(double sleepDuration) {
+        this.sleepDuration = sleepDuration;
+    }
+
 }

@@ -1,13 +1,9 @@
 package com.mycompany.healthcare;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class HealthMonitor implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-        private List<User> users;
     private User loggedInUser;
     private String dailyHealthReport;
 
@@ -24,44 +20,79 @@ public class HealthMonitor implements Serializable {
         return loggedInUser;
     }
 
-    
-    public void addUser(User user) {
-        users.add(user);
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-    
-    public void recordHealthData(int bloodPressure, int heartRate, String vaccinationStatus) {
+    public String generateHealthReport() {
         if (loggedInUser != null) {
-            loggedInUser.setBloodPressure(bloodPressure);
-            loggedInUser.setHeartRate(heartRate);
-            loggedInUser.setVaccinationStatus(vaccinationStatus);
-        }
-    }
+            double bmi = calculateBMI();
+            String activityLevel = calculateActivityLevel();
+            String sleepQuality = calculateSleepQuality();
+            String nutritionStatus = calculateNutritionStatus();
 
-    public void generateHealthReport() {
-        if (loggedInUser != null) {
+            String userData = new String("User: " + loggedInUser.getName()
+                    + ", Age: " + loggedInUser.getAge()
+                    + ", Gender: " + loggedInUser.getGender()
+                    + ", Weight: " + loggedInUser.getWeight()
+                    + ", Height: " + loggedInUser.getHeight());
+
             StringBuilder reportBuilder = new StringBuilder("Daily Health Report for " + loggedInUser.getName() + ":\n");
+            reportBuilder.append(userData);
             reportBuilder.append("\nBlood Pressure: ").append(loggedInUser.getBloodPressure());
             reportBuilder.append("\nHeart Rate: ").append(loggedInUser.getHeartRate());
             reportBuilder.append("\nVaccination Status: ").append(loggedInUser.getVaccinationStatus());
+            reportBuilder.append("\nBMI: ").append(bmi);
+            reportBuilder.append("\nActivity Level: ").append(activityLevel);
+            reportBuilder.append("\nSleep Quality: ").append(sleepQuality);
+            reportBuilder.append("\nNutrition Status: ").append(nutritionStatus);
+
             dailyHealthReport = reportBuilder.toString();
+            return dailyHealthReport;
+        } else {
+            return "There is no Report for this user";
         }
     }
 
-    public void notifyVaccinationDue() {
-        if (loggedInUser != null && "Not Vaccinated".equals(loggedInUser.getVaccinationStatus())) {
-            System.out.println("Notification: Vaccination is due for user " + loggedInUser.getName());
+    private double calculateBMI() {
+        if (loggedInUser != null && loggedInUser.getHeight() > 0 && loggedInUser.getWeight() > 0) {
+            return loggedInUser.getWeight() / Math.pow(loggedInUser.getHeight(), 2);
+        } else {
+            return 0;
         }
     }
 
-    public String getDailyHealthReport() {
-        return dailyHealthReport;
+    private String calculateSleepQuality() {
+        double sleepDuration = loggedInUser.getSleepDuration();
+        if (sleepDuration >= 7 && sleepDuration <= 9) {
+            return "Good";
+        } else if (sleepDuration < 7) {
+            return "Poor (Insufficient sleep)";
+        } else {
+            return "Poor (Excessive sleep)";
+        }
     }
+
+    private String calculateActivityLevel() {
+        double weeklyActivityHours = loggedInUser.getWeeklyActivityHours();
+
+        if (weeklyActivityHours < 2) {
+            return "Sedentary";
+        } else if (weeklyActivityHours < 5) {
+            return "Lightly Active";
+        } else if (weeklyActivityHours < 10) {
+            return "Moderately Active";
+        } else {
+            return "Very Active";
+        }
+    }
+
+    private String calculateNutritionStatus() {
+        int servings = loggedInUser.getNutritionDetails();
+
+        if (servings >= 5) {
+            return "Excellent";
+        } else if (servings >= 3) {
+            return "Good";
+        } else {
+            return "Needs Improvement";
+        }
+    }
+
 }
